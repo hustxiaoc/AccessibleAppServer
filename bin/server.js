@@ -12,5 +12,4 @@ process.on('SIGUSR2', function() {
     cluster.reload();
 });
 
-fork(path.join(__dirname, 'express_server.js'))
 console.info('spawned cluster, kill -s SIGUSR2 ' + process.pid + ' to reload');

@@ -1,6 +1,7 @@
 'use strict';
 var fs = require('fs'),
     path = require('path'),
+    http = require('http'),
     koa = require('koa');
 
 var app = koa();
@@ -12,7 +13,7 @@ try {
         require(path.resolve(middlewareDir, filePath))(app);
     });
 }catch(err){
-    console.log(err);
+    //console.log(err);
 }
 
 
@@ -24,7 +25,7 @@ try{
         app.use(router.routes());
     });
 }catch(err){
-    console.log(err);
+    //console.log(err);
 }
 
 var proxy = require('koa-proxy');
@@ -43,5 +44,23 @@ app.use(proxy({
   host:  'http://127.0.0.1:3001/',
   match: /^\/1\.1\//
 }));
+
+
+var server = new http.Server();
+var express_app = require('./express_app');
+
+app.listen = function () {
+    var handle = app.callback();
+    server.listen.apply(server, arguments);
+
+    server.on('request', function(req, res) {
+        var url = req.url;
+        if(url.indexOf('/__engine') === 0 || url.indexOf('/1') === 0) {
+            return express_app.apply(null, arguments);
+        }
+        handle.apply(null, arguments);
+    });
+    return server;
+};
 
 module.exports = app;
