@@ -1,7 +1,7 @@
 'use strict';
 var fs = require('fs'),
     path = require('path'),
-    koa = require('koa');
+    koa = require('./lib/application');
 
 var app = koa();
 
@@ -9,10 +9,10 @@ var app = koa();
 try {
     var middlewareDir = path.resolve(__dirname, './app/middleware');
     fs.readdirSync(middlewareDir).forEach(function(filePath){
-        require(path.resolve(middlewareDir, filePath))(app);
+        //require(path.resolve(middlewareDir, filePath))(app);
     });
 }catch(err){
-
+    console.log(err);
 }
 
 

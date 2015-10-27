@@ -3,8 +3,8 @@
 
 require('module-unique').init();
 
-var app = require('../app'),
-    graceful = require('graceful');
+graceful = require('graceful');
+
 
 var AV = require('leanengine');
 
@@ -29,6 +29,6 @@ graceful({
                 ' (uncaughtException throw ' + throwErrorCount +
                 ' times on pid:' + process.pid + ')';
         }
-        console.error(err);
+        //console.error(err);
     }
 });
