@@ -1,10 +1,13 @@
 #!/usr/bin/env node
 'use strict';
-var path = require('path'),
-    recluster = require('recluster'),
-    fork = require('child_process').fork;
 
-var cluster = recluster(path.join(__dirname, 'app.js'));
+var path = require('path'),
+    recluster = require('recluster');
+
+var cluster = recluster(path.join(__dirname, 'express_app.js'),{
+    workers:1
+});
+
 cluster.run();
 
 process.on('SIGUSR2', function() {
@@ -12,5 +15,4 @@ process.on('SIGUSR2', function() {
     cluster.reload();
 });
 
-fork(path.join(__dirname, 'express_server.js'))
 console.info('spawned cluster, kill -s SIGUSR2 ' + process.pid + ' to reload');

@@ -9,7 +9,7 @@ var app = koa();
 try {
     var middlewareDir = path.resolve(__dirname, './app/middleware');
     fs.readdirSync(middlewareDir).forEach(function(filePath){
-        //require(path.resolve(middlewareDir, filePath))(app);
+        require(path.resolve(middlewareDir, filePath))(app);
     });
 }catch(err){
     console.log(err);
@@ -26,5 +26,22 @@ try{
 }catch(err){
     console.log(err);
 }
+
+var proxy = require('koa-proxy');
+
+app.use(proxy({
+  host:  'http://127.0.0.1:3001/',
+  match: /^\/__engine\//
+}));
+
+app.use(proxy({
+  host:  'http://127.0.0.1:3001/',
+  match: /^\/1\//
+}));
+
+app.use(proxy({
+  host:  'http://127.0.0.1:3001/',
+  match: /^\/1\.1\//
+}));
 
 module.exports = app;

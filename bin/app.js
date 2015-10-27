@@ -3,7 +3,9 @@
 
 require('module-unique').init();
 
-var graceful = require('graceful');
+var app = require('../app'),
+    graceful = require('graceful');
+
 var AV = require('leanengine');
 
 var APP_ID = process.env.LC_APP_ID;
@@ -27,6 +29,6 @@ graceful({
                 ' (uncaughtException throw ' + throwErrorCount +
                 ' times on pid:' + process.pid + ')';
         }
-        //console.error(err);
+        console.error(err);
     }
 });
