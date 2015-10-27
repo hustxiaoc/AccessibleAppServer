@@ -1,7 +1,7 @@
 'use strict';
 var fs = require('fs'),
     path = require('path'),
-    koa = require('./lib/application');
+    koa = require('koa');
 
 var app = koa();
 
