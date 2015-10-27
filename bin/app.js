@@ -3,9 +3,7 @@
 
 require('module-unique').init();
 
-graceful = require('graceful');
-
-
+var graceful = require('graceful');
 var AV = require('leanengine');
 
 var APP_ID = process.env.LC_APP_ID;
