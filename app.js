@@ -28,23 +28,6 @@ try{
     //console.log(err);
 }
 
-var proxy = require('koa-proxy');
-
-app.use(proxy({
-  host:  'http://127.0.0.1:3001/',
-  match: /^\/__engine\//
-}));
-
-app.use(proxy({
-  host:  'http://127.0.0.1:3001/',
-  match: /^\/1\//
-}));
-
-app.use(proxy({
-  host:  'http://127.0.0.1:3001/',
-  match: /^\/1\.1\//
-}));
-
 
 var server = new http.Server();
 var express_app = require('./express_app');
