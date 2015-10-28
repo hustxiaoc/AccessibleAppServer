@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 'use strict';
 var path = require('path'),
-    recluster = require('recluster'),
-    fork = require('child_process').fork;
+    recluster = require('recluster');
 
-var cluster = recluster(path.join(__dirname, 'app.js'));
+var cluster = recluster(path.join(__dirname, 'app.js'),{
+    workers:4
+});
 cluster.run();
 
 process.on('SIGUSR2', function() {

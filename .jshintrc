@@ -1,0 +1,24 @@
+{
+    "camelcase": false,
+    "curly": true,
+    "eqeqeq": true,
+    "freeze": true,
+    "indent": 4,
+    "latedef": "nofunc",
+    "quotmark": "single",
+    "nonew": true,
+    "newcap": true,
+    "immed": true,
+    "noarg": true,
+    "eqnull": true,
+    "trailing": true,
+    "undef": true,
+    "unused": true,
+    "node": true,
+    "es3": true,
+    "esnext":true,
+    "noyield":true,
+    "globals":{
+        "JSON":true
+    }
+}

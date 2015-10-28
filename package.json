@@ -3,8 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node --harmony bin/server.js"
+    "start": "node --harmony bin/server.js",
+    "lint":"gulp lint"
   },
+  "pre-commit": [
+      "lint"
+   ],
   "dependencies": {
     "accepts": "^1.2.2",
     "body-parser": "^1.12.2",

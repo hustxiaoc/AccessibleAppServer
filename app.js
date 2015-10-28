@@ -2,7 +2,8 @@
 var fs = require('fs'),
     path = require('path'),
     http = require('http'),
-    koa = require('koa');
+    koa = require('koa'),
+    express = require('./express');
 
 var app = koa();
 
@@ -28,22 +29,13 @@ try{
     //console.log(err);
 }
 
-
-var server = new http.Server();
-var express_app = require('./express_app');
-
-app.listen = function () {
-    var handle = app.callback();
-    server.listen.apply(server, arguments);
-
-    server.on('request', function(req, res) {
-        var url = req.url;
-        if(url.indexOf('/__engine') === 0 || url.indexOf('/1') === 0) {
-            return express_app.apply(null, arguments);
-        }
-        handle.apply(null, arguments);
-    });
-    return server;
-};
+app.use(function*(next) {
+  if (this.status === 404) {
+    this.status = 200;
+    return express(this.req, this.res);
+  } else {
+    yield next;
+  }
+});
 
 module.exports = app;
