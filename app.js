@@ -1,7 +1,6 @@
 'use strict';
 var fs = require('fs'),
     path = require('path'),
-    http = require('http'),
     koa = require('koa'),
     express = require('./express');
 
