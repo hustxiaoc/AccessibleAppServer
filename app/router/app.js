@@ -9,7 +9,7 @@ var router = new(require('koa-router'))({
 router.get('/', function*() {
     var query = new AV.Query(App);
     query.limit(50);
-    this.body = yield query.find();
+    this.json = yield query.find();
 });
 
 module.exports = router;

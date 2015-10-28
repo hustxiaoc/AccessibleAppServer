@@ -45,7 +45,7 @@ gulp.task('run', function () {
   nodemon({
     script: opt.serverJS,
     ext: 'js, json, conf',
-    watch    : ['./app','./config'],
+    watch    : ['./app','./app.js','express.js'],
     ignore   : ['node_modules/**'],
     nodeArgs : ['--harmony', '--debug='+opt.port.debug],
     env: _.assign({

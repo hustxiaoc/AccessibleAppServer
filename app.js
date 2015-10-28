@@ -18,6 +18,7 @@ try {
 
 
 //load routes
+
 try{
     var routerDir = path.resolve(__dirname, './app/router');
     fs.readdirSync(routerDir).forEach(function(filePath){
