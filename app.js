@@ -26,7 +26,7 @@ try{
         app.use(router.routes());
     });
 }catch(err){
-    //console.log(err);
+    console.log(err);
 }
 
 app.use(function*(next) {

@@ -1,7 +1,7 @@
 var AV = require('leanengine');
 var User = AV.User;
 var secret = process.env.LC_APP_MASTER_KEY;
-var utils = require('../lib/utils');
+var utils = require('../libs/utils');
 
 User._saveCurrentUser = function() {};
 

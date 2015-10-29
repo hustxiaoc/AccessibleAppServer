@@ -2,6 +2,9 @@ var secret = process.env.LC_APP_KEY;
 var utils = require('../libs/utils');
 
 module.exports = function(app) {
+    if (1) {
+        return;
+    }
     app.use(function*(next) {
         var header = this.request.header,
             appkey = header.key,
