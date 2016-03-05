@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node --harmony bin/server.js",
+    "start1": "node --harmony bin/app.js",
     "lint": "gulp lint"
   },
   "pre-commit": [

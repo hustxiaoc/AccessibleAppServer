@@ -1,6 +1,7 @@
 var AV = require('leanengine');
 var Comment = AV.Object.extend('comment');
 var App = AV.Object.extend('app');
+var User = AV.User;
 
 var router = new(require('koa-router'))({
     prefix: '/api/comment'
@@ -10,25 +11,37 @@ router.post('/post', function*() {
     var body = this.request.body,
         appId = body.appId,
         score = ~~body.score,
-        userId = body.userId,
         content = body.content;
 
     appId = appId && appId.trim();
     content = content && content.trim();
 
-    if (!(appId && content && score && score <= 5)) {
-        this.json = false;
+    if (!(appId && score && score <= 5)) {
+        this.throw(401);
     } else {
-        var comment = new Comment();
-        var app = new App({
-            objectId: appId
+        var user = new User({
+            objectId: this.userId,
         });
+        var app = new App({
+            objectId: appId,
+        });
+
+        var commentQuery = new AV.Query(Comment);
+        commentQuery.limit(1);
+        commentQuery.equalTo('userId', user);
+        commentQuery.equalTo('appId', app);
+
+        var count = yield commentQuery.count();
+        if (count) {
+          this.throw(403);
+        }
+
+        var comment = new Comment();
+
         comment.set('appId', app);
         comment.set('content', content);
         comment.set('score', score);
-        comment.set('userId', new AV.User({
-            objectId: userId
-        }));
+        comment.set('userId', user);
         app.increment('comment_count');
         app.increment('score', score);
         var ret = yield comment.save();

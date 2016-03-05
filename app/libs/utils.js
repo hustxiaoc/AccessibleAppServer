@@ -6,11 +6,6 @@ var isArray = util.isArray;
 
 exports.isArray = isArray;
 
-//暂时不做过滤，前端控制
-exports.stripHtml = function(s) {
-    return s;
-};
-
 function isBoolean(obj) {
     return toString.call(obj) === '[object Boolean]';
 }

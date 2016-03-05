@@ -7,11 +7,13 @@ var fs = require('fs'),
 var app = koa();
 
 //load middlewares
+var middlewares = ['body-parser','json', 'security', 'onerror'];
 try {
     var middlewareDir = path.resolve(__dirname, './app/middleware');
-    fs.readdirSync(middlewareDir).forEach(function(filePath){
-        require(path.resolve(middlewareDir, filePath))(app);
+    middlewares.forEach(function(file){
+        require(path.resolve(middlewareDir, file+'.js'))(app);
     });
+
 }catch(err){
     //console.log(err);
 }
